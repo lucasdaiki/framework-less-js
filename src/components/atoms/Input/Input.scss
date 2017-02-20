@@ -1,0 +1,116 @@
+$color-default: #B9C1CB !default;
+$color-success: #53D3CE !default;
+$color-error: #F39791 !default;
+$input-width: 30rem;
+
+.input__container {
+  margin-top: 3rem;
+  position: relative;
+  margin-bottom: 4.5rem;
+
+  &.--success {
+    .input__label {
+      color: $color-success;
+    }
+
+    .input__field {
+      border-bottom: .1rem solid $color-success;
+    }
+
+    .input__field:focus ~ .input__label,
+    .input__container:not(.--empty) .input__label {
+      color: darken($color-success, 10%);
+    }
+
+    .input__bar  {
+      &:before, &:after   {
+        background: $color-success;
+      }
+    }
+  }
+
+  &.--error {
+    .input__label {
+      color: $color-error;
+    }
+
+    .input__field {
+      border-bottom: .1rem solid $color-error;
+    }
+
+    .input__field:focus ~ .input__label,
+    .input__container:not(.--empty) .input__label {
+      color: darken($color-error, 10%);
+    }
+
+    .input__bar  {
+      &:before, &:after   {
+        background: $color-error;
+      }
+    }
+  }
+}
+
+.input__label {
+  color: $color-default;
+  font-size: 1.8rem;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: .5rem;
+  top: 1rem;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.input__field {
+  font-size: 1.8rem;
+  padding: 1rem 1rem 1rem .5rem;
+  display: block;
+  width: $input-width;
+  border: none;
+  border-bottom: .1rem solid $color-default;
+  color: darken($color-default, 30%);
+
+  &:focus {
+    outline: none;
+
+    ~ .input__bar:before,
+    ~ .input__bar:after {
+      width: 50%;
+    }
+  }
+}
+
+.input__field:focus ~ .input__label,
+.input__container:not(.--empty) .input__label {
+  top: -2rem;
+  font-size: 1.4rem;
+  color: darken($color-default, 10%);
+}
+
+.input__bar  {
+  position: relative;
+  display: block;
+  width: calc(#{$input-width} + 2rem);
+  &:before, &:after   {
+    content: '';
+    height: .2rem;
+    width: 0;
+    bottom: 0rem;
+    position: absolute;
+    background: $color-default;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  &:before {
+    left: 50%;
+  }
+
+  &:after {
+    right: 50%;
+  }
+}

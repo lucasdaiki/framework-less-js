@@ -1,0 +1,5 @@
+{
+  "name": "Avatar",
+  "private": true,
+  "main": "./Avatar.js"
+}

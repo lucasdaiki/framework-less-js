@@ -1,0 +1,5 @@
+{
+  "name": "UploadImage",
+  "private": true,
+  "main": "./UploadImage.js"
+}

@@ -1,0 +1,9 @@
+.map__container {
+  height: 30rem;
+  width: 30rem;
+  margin: 1.5rem;
+
+  > * {
+    height: inherit;
+  }
+}

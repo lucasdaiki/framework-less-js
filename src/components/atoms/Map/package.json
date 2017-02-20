@@ -1,0 +1,5 @@
+{
+  "name": "Map",
+  "private": true,
+  "main": "./Map.js"
+}

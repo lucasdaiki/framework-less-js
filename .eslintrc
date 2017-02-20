@@ -1,0 +1,21 @@
+{
+  'parser': 'babel-eslint',
+  'extends': [
+    'standard'
+   ],
+  'plugins': [
+    'babel'
+  ],
+  'env': {
+    'browser': true,
+    'node': true,
+    'es6': true
+  },
+  'globals': {
+    "google": true
+  },
+  'rules': {
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"]
+  }
+}
