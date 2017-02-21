@@ -22,6 +22,12 @@ export default class Input {
     container.appendChild(bar);
 
     this.component = container;
+
+    if (!this.empty) {
+      this.input.onchange();
+      this.input.onkeyup({ target: this.input });
+    }
+
     return this;
   }
 
@@ -53,7 +59,7 @@ export default class Input {
     return bar;
   }
 
-  handleChange ({ target = { event } }) {
+  handleChange ({ target = { event } } = {}) {
     this.onChange(this.id, target.value);
     this.validateEmpty();
     this.value = target.value;
@@ -66,7 +72,7 @@ export default class Input {
     else this.component.classList.remove('--empty');
   }
 
-  handleValidate ({ target = { event } }) {
+  handleValidate ({ target = { event } } = {}) {
     if (target.value === this.value) return;
     this.value = target.value;
     this.validateEmpty();

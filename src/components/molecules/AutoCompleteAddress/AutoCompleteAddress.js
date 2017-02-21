@@ -19,7 +19,7 @@ export default class AutoCompleteAddress extends Input {
     return this;
   }
 
-  handleChange (place) {
+  handleChange (place = {}) {
     this.onChange(this.id, place.formatted_address || this.input.value);
     this.validateEmpty(place.formatted_address || this.input.value);
     this.value = place;

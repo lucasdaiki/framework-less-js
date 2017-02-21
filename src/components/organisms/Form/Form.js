@@ -1,4 +1,3 @@
-import ItemRepository from '../../../repositories/PersonRepository';
 import Router from '../../../routes/Router';
 
 import Title from '../../atoms/Title';
@@ -7,7 +6,9 @@ import createField from './createField';
 require('./Form.scss');
 
 export default class Form {
-  constructor (fields, titleLabel = 'Person form') {
+  constructor (fields, PersonRepository, titleLabel = 'Person form') {
+    this.PersonRepository = PersonRepository;
+
     this.data = {};
     this.fieldElements = [];
     this.fields = fields;
@@ -34,7 +35,7 @@ export default class Form {
   }
 
   handleSave (e) {
-    ItemRepository.save(this.data);
+    this.PersonRepository.save(this.data);
     Router.go('list');
     e.preventDefault();
   }
