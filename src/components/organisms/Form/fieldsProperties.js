@@ -1,6 +1,5 @@
 import Input from '../../atoms/Input';
 import Button from '../../atoms/Button';
-import Map from '../../atoms/Map';
 import UploadImage from '../../atoms/UploadImage';
 import AutoCompleteAddress from '../../molecules/AutoCompleteAddress';
 import validators from './validators';
@@ -8,47 +7,36 @@ import validators from './validators';
 const PROPERTIES = {
   txtFullname: {
     label: 'Full Name',
-    component: Input,
+    Component: Input,
     validator: validators.REQUIRED
   },
   txtCpf: {
     label: 'CPF',
     validator: validators.CPF,
-    component: Input
+    Component: Input
   },
   txtTelephone: {
     label: 'Phone',
     validator: validators.PHONE,
-    component: Input
+    Component: Input
   },
   txtAddress: {
     label: 'Address',
-    component: AutoCompleteAddress,
-    validator: validators.REQUIRED,
-    onChange: (form, value) => {
-      // DO ANYTHING
-    }
-  },
-  mapRenderer: {
-    label: 'Map',
-    component: Map // DOING
+    Component: AutoCompleteAddress,
+    validator: validators.REQUIRED
   },
   txtComplement: {
     label: 'Complement',
-    component: Input,
+    Component: Input,
     validator: validators.REQUIRED
   },
   uplImage: {
     label: 'Image',
-    component: UploadImage // TODO
-  },
-  imgAvatar: {
-    label: 'Avatar',
-    component: Input // TODO
+    Component: UploadImage // TODO
   },
   btnSave: {
     label: 'Save',
-    component: Button // DOING
+    Component: Button // DOING
   }
 };
 
