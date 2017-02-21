@@ -1,6 +1,8 @@
 import GoogleAdapter from '../../../adapters/googleAdapter';
 import Input from '../../atoms/Input';
 
+require('./AutoCompleteAddress.scss');
+
 export default class AutoCompleteAddress extends Input {
   constructor (properties) {
     super(properties);
