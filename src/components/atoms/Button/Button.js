@@ -1,17 +1,18 @@
 require('./Button.scss');
 
-const TYPES = {
+const COLOR_TYPES = {
   PRIMARY: 'primary',
   SECONDARY: 'secondary'
 };
 
 export default class Button {
-  constructor ({ placeholder = '', type = TYPES.PRIMARY }) {
+  constructor ({ placeholder = '', color = COLOR_TYPES.PRIMARY, type = 'submit', onClick = () => {} }) {
     const button = document.createElement('button');
     button.innerHTML = placeholder;
-    button.setAttribute('type', 'submit');
+    button.setAttribute('type', type);
     button.classList.add('button__container');
-    button.classList.add(`--${type}`);
+    button.classList.add(`--${color}`);
+    button.addEventListener('click', onClick);
 
     this.component = button;
     return this;
