@@ -1,12 +1,16 @@
+@import '../../../scss/base.scss';
+
 $color-default: #B9C1CB !default;
 $color-success: #53D3CE !default;
 $color-error: #F39791 !default;
-$input-width: 30rem;
+$input-width: $field-width;
 
 .input__container {
-  margin-top: 3rem;
   position: relative;
-  margin-bottom: 4.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: $input-width;
+  max-width: 90%;
 
   &.--success {
     .input__label {
@@ -66,12 +70,13 @@ $input-width: 30rem;
 
 .input__field {
   font-size: 1.8rem;
-  padding: 1rem 1rem 1rem .5rem;
+  padding: 1rem 1rem 1rem 1rem;
   display: block;
-  width: $input-width;
+  width: 100%;
   border: none;
   border-bottom: .1rem solid $color-default;
   color: darken($color-default, 30%);
+  background: transparent;
 
   &:focus {
     outline: none;
@@ -93,7 +98,7 @@ $input-width: 30rem;
 .input__bar  {
   position: relative;
   display: block;
-  width: calc(#{$input-width} + 2rem);
+  width: calc(100% + 2rem);
   &:before, &:after   {
     content: '';
     height: .2rem;

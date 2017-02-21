@@ -9,11 +9,12 @@ $disabled-background: #F6F6F6;
 $disabled-color: #C5C5C5;
 
 $font-size: 1.6rem;
-$button-width: 50rem;
+$button-width: 60rem;
 $button-height: 4rem;
 
 .button__container {
   width: $button-width;
+  max-width: 90%;
   height: $button-height;
   border-radius: 5rem;
   cursor: pointer;

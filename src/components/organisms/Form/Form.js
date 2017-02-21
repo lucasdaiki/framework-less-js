@@ -1,15 +1,16 @@
 import Title from '../../atoms/Title';
 import createField from './createField';
 
+require('./Form.scss');
 export default class Form {
-  constructor (fields) {
+  constructor (fields, titleLabel = 'Create') {
     this.data = {};
     this.fieldElements = [];
     this.fields = fields;
     this.component = document.createElement('form');
-    this.component.className = 'form';
+    this.component.className = 'form__container';
 
-    const title = new Title({ text: 'Form' });
+    const title = new Title({ text: titleLabel });
     this.component.appendChild(title);
 
     fields.forEach(field => {
