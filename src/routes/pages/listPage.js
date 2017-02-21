@@ -1,7 +1,8 @@
-import Form from '../../components/organisms/Form';
-import { fields } from '../../mock/fields.json';
+import PersonRepository from '../../repositories/PersonRepository';
+import List from '../../components/organisms/List';
+import { persons } from '../../mock/persons.json';
 
-export default () => {
-  const form = new Form(fields);
-  return form.component;
+export default (id) => {
+  const list = new List(persons, PersonRepository);
+  return list.component;
 };

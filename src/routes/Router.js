@@ -2,8 +2,12 @@ import formPage from './pages/formPage';
 import listPage from './pages/listPage';
 
 const ROUTES = {
-  'form': (id) => formPage(id),
-  'list': () => listPage
+  'form': (hash, params) => {
+    const id = params ? params.id : getParam(hash, 'id');
+    return formPage(id);
+  },
+  'list': listPage,
+  '': listPage
 };
 
 function getHash (route) {
@@ -15,19 +19,18 @@ function getParam (route, param) {
 }
 
 export default class Router {
-  static go (hash = '') {
+  static go (hash = '', params) {
     if (hash.startsWith('#')) hash = hash.replace('#', '');
     if (hash) location.hash = `#${hash}`;
+    if (params) location.hash += `?id=${params.id}`;
 
-    const page = ROUTES[getHash(hash)](getParam(hash, 'id'));
-    if (!page) location.hash = '';
+    const page = ROUTES[getHash(hash)];
+    if (!page) {
+      location.hash = '';
+      return page;
+    }
 
-    document.querySelector('.main').appendChild(page);
-  }
-
-  static startup () {
-    window.onhashchange = ({ oldURL, newURL }) => {
-      if (newURL !== oldURL) Router.go(newURL.split('#')[1]);
-    };
+    document.querySelector('.main').innerHTML = '';
+    document.querySelector('.main').appendChild(page(hash, params));
   }
 }
