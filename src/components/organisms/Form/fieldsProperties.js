@@ -41,3 +41,6 @@ const PROPERTIES = {
 };
 
 export default PROPERTIES;
+
+const defaultField = { Component: Input };
+export { defaultField };
