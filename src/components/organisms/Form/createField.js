@@ -1,13 +1,12 @@
-import FIELDS_PROPERTIES from './fieldsProperties';
+import FIELDS_PROPERTIES, { defaultField } from './fieldsProperties';
 
 const createField = (field, updateForm, form) => {
-  const fieldProperty = FIELDS_PROPERTIES[field.id];
-  const Component = fieldProperty.component;
+  let fieldProperty = FIELDS_PROPERTIES[field.id] || defaultField;
 
-  return new Component({
+  return new fieldProperty.Component({
     value: field.value,
     id: field.id,
-    placeholder: fieldProperty.label,
+    placeholder: fieldProperty.label || field.name,
     validator: fieldProperty.validator,
     connectedField: fieldProperty.connectedField,
     onChange: updateForm
