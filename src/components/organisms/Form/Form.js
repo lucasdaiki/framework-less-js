@@ -1,14 +1,19 @@
+import ItemRepository from '../../../repositories/PersonRepository';
+import Router from '../../../routes/Router';
+
 import Title from '../../atoms/Title';
 import createField from './createField';
 
 require('./Form.scss');
+
 export default class Form {
-  constructor (fields, titleLabel = 'Create') {
+  constructor (fields, titleLabel = 'Person form') {
     this.data = {};
     this.fieldElements = [];
     this.fields = fields;
     this.component = document.createElement('form');
     this.component.className = 'form__container';
+    this.component.addEventListener('submit', this.handleSave.bind(this));
 
     const title = new Title({ text: titleLabel });
     this.component.appendChild(title);
@@ -25,7 +30,12 @@ export default class Form {
 
   handleChange (key, value) {
     this.data[key] = value;
-    console.log(this.data);
     return this;
+  }
+
+  handleSave (e) {
+    ItemRepository.save(this.data);
+    Router.go('list');
+    e.preventDefault();
   }
 }
