@@ -12,11 +12,14 @@ export default class PersonRepository {
   }
 
   static edit (person, id) {
-    return persons.push(person);
+    const personIndex = persons.findIndex(p => p.id === id);
+    if (~personIndex) persons[personIndex] = person;
+    else return PersonRepository.save(person);
   }
 
   static delete (id) {
-    persons = persons.filter(person => person.id !== id);
+    const index = persons.findIndex(p => p.id === id);
+    persons.splice(index, 1);
   }
 
   static all () {
