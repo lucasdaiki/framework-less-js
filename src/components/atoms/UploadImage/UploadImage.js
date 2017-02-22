@@ -27,14 +27,24 @@ export default class UploadImage {
     this.preview = document.createElement('div');
     this.preview.classList.add('upload-image__avatar');
 
+    this.img = document.createElement('img');
+    this.img.classList.add('upload-image__preview');
+    this.img.src = value;
+    this.preview.appendChild(this.img);
+
     this.message = document.createElement('label');
     this.message.classList.add('upload-image__message');
     this.message.textContent = 'Choose a file or drag it here';
     this.message.setAttribute('for', id);
 
+    this.errorMessage = document.createElement('label');
+    this.errorMessage.classList.add('upload-image__message');
+    this.errorMessage.classList.add('--error');
+
     this.droppableArea.appendChild(this.preview);
     this.component.appendChild(this.droppableArea);
     this.component.appendChild(this.message);
+    this.component.appendChild(this.errorMessage);
     this.component.appendChild(this.input);
 
     return this;
@@ -47,21 +57,17 @@ export default class UploadImage {
     const imageType = /^image\//;
 
     if (!imageType.test(file.type) || file.size > MAX_SIZE) {
-      this.message.textContent = 'Invalid File';
+      this.errorMessage.textContent = 'Invalid File';
       return;
     }
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    this.message.textContent = '';
-    this.preview.innerHTML = '';
-    const img = document.createElement('img');
-    img.classList.add('upload-image__preview');
-    this.preview.appendChild(img);
+    this.errorMessage.textContent = '';
 
     reader.onload = (e) => {
-      img.src = e.target.result;
+      this.img.src = e.target.result;
       this.onChange(this.id, e.target.result);
     };
   }
