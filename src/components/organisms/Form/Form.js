@@ -6,10 +6,10 @@ import createField from './createField';
 require('./Form.scss');
 
 export default class Form {
-  constructor (fields, PersonRepository, titleLabel = 'Person form') {
+  constructor (fields, id, PersonRepository, titleLabel = 'Person form') {
     this.PersonRepository = PersonRepository;
-
-    this.data = {};
+    this.id = id;
+    this.data = PersonRepository.get(id) || {};
     this.fieldElements = [];
     this.fields = fields;
     this.component = document.createElement('form');
@@ -20,6 +20,7 @@ export default class Form {
     this.component.appendChild(title);
 
     fields.forEach(field => {
+      field.value = this.data[field.id];
       const fieldElement = createField(field, this.handleChange.bind(this), this.component);
       this.fieldElements.push(fieldElement);
     });
@@ -35,7 +36,9 @@ export default class Form {
   }
 
   handleSave (e) {
-    this.PersonRepository.save(this.data);
+    if (this.id) this.PersonRepository.edit(this.data, this.id);
+    else this.PersonRepository.save(this.data);
+
     Router.go('list');
     e.preventDefault();
   }
