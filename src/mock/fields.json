@@ -3,14 +3,12 @@
       {
          "name":"txtFullname",
          "id":"txtFullname",
-         "value":"",
          "type":"text",
          "class":"input"
       },
       {
          "name":"txtCpf",
          "id":"txtCpf",
-         "value":"",
          "type":"text",
          "Mask":"000.000.000-00",
          "class":"input"
@@ -18,7 +16,6 @@
       {
          "name":"txtTelephone",
          "id":"txtTelephone",
-         "value":"",
          "type":"text",
          "Mask":"(00) 00000-0000",
          "class":"input"
@@ -26,14 +23,12 @@
       {
          "name":"txtAddress",
          "id":"txtAddress",
-         "value":"",
          "type":"text",
          "class":"input"
       },
       {
          "name":"txtComplement",
          "id":"txtComplement",
-         "value":"",
          "type":"text",
          "class":"input"
       },
@@ -45,7 +40,6 @@
       {
          "name":"btnSave",
          "id":"btnSave",
-         "value":"",
          "class":"input"
       }
    ]
