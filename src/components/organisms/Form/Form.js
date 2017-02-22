@@ -1,14 +1,13 @@
-import Router from '../../../routes/Router';
-
 import createField from './createField';
 
 require('./Form.scss');
 
 export default class Form {
-  constructor (fields, id, PersonRepository, titleLabel = 'Person form') {
+  constructor (fields, id, PersonRepository, Router, titleLabel = 'Person form') {
     this.PersonRepository = PersonRepository;
+    this.Router = Router;
     this.id = id;
-    this.data = PersonRepository.get(id) || {};
+    this.data = (id && PersonRepository.get(id)) || {};
     this.fieldElements = [];
     this.fields = fields;
 
@@ -36,7 +35,7 @@ export default class Form {
     if (this.id) this.PersonRepository.edit(this.data, this.id);
     else this.PersonRepository.save(this.data);
 
-    Router.go('list');
+    this.Router.go('list');
     e.preventDefault();
   }
 }
