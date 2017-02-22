@@ -1,22 +1,6 @@
-import formPage from './pages/formPage';
-import listPage from './pages/listPage';
-
-const ROUTES = {
-  'form': (hash, params) => {
-    const id = params ? params.id : getParam(hash, 'id');
-    return formPage(id);
-  },
-  'list': listPage,
-  '': listPage
-};
-
-function getHash (route) {
-  return route.split('?')[0];
-}
-
-function getParam (route, param) {
-  return route.split(`${param}=`)[1];
-}
+import ROUTES from './routes';
+import { getHash } from './parsers';
+import Navbar from '../components/molecules/Navbar';
 
 export default class Router {
   static go (hash = '', params) {
@@ -27,10 +11,11 @@ export default class Router {
     const page = ROUTES[getHash(hash)];
     if (!page) {
       location.hash = '';
-      return page;
+      return page.render();
     }
 
     document.querySelector('.main').innerHTML = '';
-    document.querySelector('.main').appendChild(page(hash, params));
+    document.querySelector('.main').appendChild(new Navbar(ROUTES, Router.go).component);
+    document.querySelector('.main').appendChild(page.render(hash, params));
   }
 }
