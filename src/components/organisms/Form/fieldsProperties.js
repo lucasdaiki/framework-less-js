@@ -27,16 +27,15 @@ const PROPERTIES = {
   },
   txtComplement: {
     label: 'Complement',
-    Component: Input,
-    validator: validators.REQUIRED
+    Component: Input
   },
   uplImage: {
     label: 'Image',
-    Component: UploadImage // TODO
+    Component: UploadImage
   },
   btnSave: {
     label: 'Save',
-    Component: Button // DOING
+    Component: Button
   }
 };
 
