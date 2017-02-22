@@ -1,7 +1,7 @@
 require('./Input.scss');
 
 export default class Input {
-  constructor ({ value = '', placeholder = '', id = '', className = '', validator, onChange }) {
+  constructor ({ value = '', placeholder = '', id = '', className = '', validator, onChange } = {}) {
     this.validator = validator;
     this.value = value;
     this.empty = value === undefined || value.toString().trim().length === 0;
@@ -25,7 +25,7 @@ export default class Input {
 
     if (!this.empty) {
       this.input.onchange();
-      if (this.input.onkeyup) this.input.onkeyup({ target: this.input });
+      if (this.input.onkeyup) this.handleValidate({ target: this.input });
     }
 
     return this;
@@ -60,7 +60,7 @@ export default class Input {
     return bar;
   }
 
-  handleChange ({ target = { event } } = {}) {
+  handleChange ({ target = { event } } = { target: { event: {} } }) {
     this.onChange(this.id, target.value);
     this.validateEmpty();
     this.value = target.value;
@@ -73,7 +73,7 @@ export default class Input {
     else this.component.classList.remove('--empty');
   }
 
-  handleValidate ({ target = { event } } = {}) {
+  handleValidate ({ target = { event } } = { target: { event: {} } }) {
     if (target.value === this.value) return;
     this.value = target.value;
     this.validateEmpty();
