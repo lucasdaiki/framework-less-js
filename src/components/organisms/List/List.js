@@ -51,20 +51,15 @@ export default class List {
     this.personElements = [];
     this.persons = persons;
     this.component = document.createElement('div');
-    this.component.classList.add('list__container');
-
-    const title = new Title({ text: titleLabel });
-    this.component.appendChild(title);
-
-    const newButton = new Button({
-      placeholder: 'New',
-      type: 'button',
-      onClick: () => Router.go('form')
-    }).component;
+    this.component.classList.add('list__page');
 
     const list = document.createElement('div');
     list.classList.add('list__items');
     this.list = list;
+
+    const container = document.createElement('div');
+    container.classList.add('list__container');
+    container.appendChild(list);
 
     persons.forEach(person => {
       const personElement = createRow(person, this.handleEdit, this.handleDelete.bind(this));
@@ -72,8 +67,7 @@ export default class List {
     });
 
     this.personElements.forEach(person => list.appendChild(person));
-    this.component.appendChild(newButton);
-    this.component.appendChild(list);
+    this.component.appendChild(container);
 
     return this;
   }

@@ -11,12 +11,11 @@
 }
 
 .list__item {
-  max-width: 50rem;
-  min-width: 35rem;
   padding: 1rem;
   margin: 1rem;
   border: .1rem solid #B9C1CB;
   border-radius: .5rem;
+  transition: .2s all;
 }
 
 .list__item__avatar {
@@ -30,6 +29,8 @@
 .list__item__name {
   font-size: 1.4rem;
   margin: 1rem;
+  text-align: center;
+  display: block;
 }
 
 .list__item__edit-button,
@@ -41,7 +42,7 @@
  /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1201px) {
   .list__item {
-    width: calc(100% / 3 - 10rem);
+    width: calc(100% / 3 - 4.5rem);
   }
 }
 
@@ -54,14 +55,14 @@
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
   .list__item {
-    width: calc(100% - 5rem);
+    width: calc(100% / 2 - 5rem);
   }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
   .list__item {
-      width: 100%;
+      width: calc(100% - 5rem);
   }
 }
 
@@ -70,6 +71,7 @@
   .list__item {
     width: 100%;
     min-width: 30rem;
+    max-width: 90%;
   }
 }
 
