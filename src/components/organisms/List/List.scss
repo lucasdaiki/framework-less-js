@@ -1,23 +1,75 @@
-.list__row {
-
-}
-
-.list__row__avatar {
-
-}
-
-.list__row__name {
-
-}
-
-.list__row__edit-button {
-
-}
-
 .list__container {
 
 }
 
 .list__items {
-
+  max-width: 90%;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
 }
+
+.list__item {
+  max-width: 50rem;
+  min-width: 35rem;
+  padding: 1rem;
+  margin: 1rem;
+  border: .1rem solid #B9C1CB;
+  border-radius: .5rem;
+}
+
+.list__item__avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+}
+
+.list__item__name {
+  font-size: 1.4rem;
+  margin: 1rem;
+}
+
+.list__item__edit-button,
+.list__item__delete-button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ /* Large Devices, Wide Screens */
+@media only screen and (min-width : 1201px) {
+  .list__item {
+    width: calc(100% / 3 - 10rem);
+  }
+}
+
+@media only screen and (max-width : 1200px) {
+  .list__item {
+    width: calc(100% / 2 - 10rem);
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  .list__item {
+    width: calc(100% - 5rem);
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+  .list__item {
+      width: 100%;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+  .list__item {
+    width: 100%;
+    min-width: 30rem;
+  }
+}
+
