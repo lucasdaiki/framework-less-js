@@ -55,16 +55,17 @@ export default class UploadImage {
       return;
     }
 
-    const img = document.createElement('img');
-    img.classList.add('upload-image__preview');
-    img.file = file;
-    this.preview.appendChild(img);
-
     const reader = new FileReader();
-    reader.onload = (e) => { img.src = e.target.result; };
     reader.readAsDataURL(file);
 
-    this.onChange(this.id, file);
+    const img = document.createElement('img');
+    img.classList.add('upload-image__preview');
+    this.preview.appendChild(img);
+
+    reader.onload = (e) => {
+      img.src = e.target.result;
+      this.onChange(this.id, e.target.result);
+    };
   }
 
   dragenter (e) {
