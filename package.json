@@ -32,6 +32,7 @@
     "jest": "^19.0.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.1",
+    "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
