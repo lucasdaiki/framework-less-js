@@ -25,7 +25,7 @@ export default class Input {
 
     if (!this.empty) {
       this.input.onchange();
-      this.input.onkeyup({ target: this.input });
+      if (this.input.onkeyup) this.input.onkeyup({ target: this.input });
     }
 
     return this;
