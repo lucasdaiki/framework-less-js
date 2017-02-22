@@ -4,11 +4,15 @@ import validators from './validators';
 
 const fields = [ { id: 'test' } ];
 
-const PersonRepository = {
-  get: sinon.spy(),
-  save: sinon.spy(),
-  edit: sinon.spy()
-};
+let PersonRepository;
+
+beforeEach(() => {
+  PersonRepository = {
+    get: sinon.spy(),
+    save: sinon.spy(),
+    edit: sinon.spy()
+  };
+});
 
 const Router = { go: sinon.spy() };
 
