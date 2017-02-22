@@ -1,5 +1,6 @@
 require('./UploadImage.scss');
 
+const MAX_SIZE = 500000;
 export default class UploadImage {
   constructor ({ value = '', placeholder = '', id = '', className = '', onChange }) {
     this.value = value;
@@ -8,9 +9,6 @@ export default class UploadImage {
 
     this.component = document.createElement('div');
     this.component.className = `upload-image__container ${className} ${id}`;
-
-    const label = document.createElement('span');
-    label.textContent = placeholder;
 
     this.input = document.createElement('input');
     this.input.classList.add('upload-image__input');
@@ -34,7 +32,6 @@ export default class UploadImage {
     this.message.textContent = 'Choose a file or drag it here';
     this.message.setAttribute('for', id);
 
-    this.component.appendChild(label);
     this.droppableArea.appendChild(this.preview);
     this.component.appendChild(this.droppableArea);
     this.component.appendChild(this.message);
@@ -46,11 +43,10 @@ export default class UploadImage {
   handleFiles (files) {
     if (!files[0]) return;
 
-    this.preview.innerHTML = '';
     const file = files[0];
     const imageType = /^image\//;
 
-    if (!imageType.test(file.type)) {
+    if (!imageType.test(file.type) || file.size > MAX_SIZE) {
       this.message.textContent = 'Invalid File';
       return;
     }
@@ -58,6 +54,8 @@ export default class UploadImage {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
+    this.message.textContent = '';
+    this.preview.innerHTML = '';
     const img = document.createElement('img');
     img.classList.add('upload-image__preview');
     this.preview.appendChild(img);
