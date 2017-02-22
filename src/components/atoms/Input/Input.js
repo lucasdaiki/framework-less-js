@@ -33,11 +33,12 @@ export default class Input {
 
   buildInput ({ validator }) {
     const input = document.createElement('input');
-    input.className = 'input__field';
-    input.type = 'text';
-    input.required = true;
-    input.value = this.value;
-    input.name = this.id;
+    input.classList.add('input__field');
+    input.setAttribute('type', 'text');
+    input.setAttribute('required', true);
+    input.setAttribute('value', this.value);
+    input.setAttribute('name', this.id);
+    input.setAttribute('autocomplete', 'off');
 
     input.onkeyup = validator && this.handleValidate.bind(this);
     input.onchange = this.handleChange.bind(this);
