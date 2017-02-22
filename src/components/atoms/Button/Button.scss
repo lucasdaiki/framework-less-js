@@ -25,6 +25,8 @@ $button-height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
 
   &.--primary {
     background-color: $primary-background;

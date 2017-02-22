@@ -1,12 +1,12 @@
 require('./Button.scss');
 
-const COLOR_TYPES = {
+const BUTTON_COLOR_TYPES = {
   PRIMARY: 'primary',
   SECONDARY: 'secondary'
 };
 
 export default class Button {
-  constructor ({ placeholder = '', color = COLOR_TYPES.PRIMARY, type = 'submit', onClick = () => {} }) {
+  constructor ({ placeholder = '', color = BUTTON_COLOR_TYPES.PRIMARY, type = 'submit', onClick = () => {} }) {
     const button = document.createElement('button');
     button.innerHTML = placeholder;
     button.setAttribute('type', type);
@@ -18,3 +18,5 @@ export default class Button {
     return this;
   }
 }
+
+export { BUTTON_COLOR_TYPES };
