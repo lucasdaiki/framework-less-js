@@ -29,7 +29,7 @@ export default class UploadImage {
 
     this.img = document.createElement('img');
     this.img.classList.add('upload-image__preview');
-    this.img.src = value;
+    if (value) this.img.src = value;
     this.preview.appendChild(this.img);
 
     this.message = document.createElement('label');
