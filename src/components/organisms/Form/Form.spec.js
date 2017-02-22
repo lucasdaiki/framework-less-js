@@ -44,7 +44,7 @@ describe('#Form', () => {
   });
 
   describe('#validators', () => {
-    describe('#cpfParser', () => {
+    describe('#cpfValidator', () => {
       test('should validate a valid cpf', () => {
         const cpf = '12312312312';
         const validatedCPF = validators.CPF(cpf);
@@ -62,7 +62,7 @@ describe('#Form', () => {
       });
     });
 
-    describe('#phoneParser', () => {
+    describe('#phoneValidator', () => {
       test('should validate a valid phone (8 digits)', () => {
         const phone = '1111111111';
         const validatedPhone = validators.PHONE(phone);
@@ -85,6 +85,22 @@ describe('#Form', () => {
         expect(validatedPhone.valid).toBeFalsy();
         expect(validatedPhone.phone).toEqual(phone);
         expect(validatedPhone.parsed).toBeUndefined();
+      });
+    });
+
+    describe('#requiredValidator', () => {
+      test('should invalidate a empty string', () => {
+        const validated = validators.REQUIRED('');
+        expect(validated.valid).toBeFalsy();
+        expect(validated.value).toEqual('');
+        expect(validated.parsed).toEqual('');
+      });
+
+      test('should validate a filled string', () => {
+        const validated = validators.REQUIRED('123');
+        expect(validated.valid).toBeTruthy();
+        expect(validated.value).toEqual('123');
+        expect(validated.parsed).toEqual('123');
       });
     });
   });
