@@ -15,7 +15,8 @@
     "google": true,
     "describe": true,
     "test": true,
-    "expect": true
+    "expect": true,
+    "beforeEach": true
   },
   'rules': {
       "semi": ["error", "always"],
