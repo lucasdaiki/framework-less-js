@@ -1,32 +1,43 @@
 import Router from '../../../routes/Router';
 import Title from '../../atoms/Title';
-import Button from '../../atoms/Button';
+import Button, { BUTTON_COLOR_TYPES } from '../../atoms/Button';
+import defaultAvatar from '../../../img/avatar.png';
 
 require('./List.scss');
 
-const createRow = person => {
+const createRow = (person, handleEdit, handleDelete) => {
   const row = document.createElement('div');
-  row.classList.add('list__row');
+  row.classList.add('list__item');
 
   const avatar = document.createElement('img');
-  avatar.classList.add('list__row__avatar');
-  avatar.file = person.uplImage;
+  avatar.classList.add('list__item__avatar');
+  avatar.src = person.uplImage || defaultAvatar;
 
   const name = document.createElement('span');
-  name.classList.add('list__row__name');
+  name.classList.add('list__item__name');
   name.innerText = person.txtFullname;
 
-  const button = new Button({
+  const edditButton = new Button({
     placeholder: 'Edit',
     type: 'button',
-    onClick: () => Router.go('form', { id: person.id })
+    onClick: () => handleEdit(person.id)
   }).component;
 
-  button.classList.add('list__row__edit-button');
+  edditButton.classList.add('list__item__edit-button');
+
+  const deleteButton = new Button({
+    placeholder: 'Delete',
+    type: 'button',
+    onClick: () => handleDelete(person.id, row),
+    color: BUTTON_COLOR_TYPES.SECONDARY
+  }).component;
+
+  deleteButton.classList.add('list__item__delete-button');
 
   row.appendChild(avatar);
   row.appendChild(name);
-  row.appendChild(button);
+  row.appendChild(edditButton);
+  row.appendChild(deleteButton);
 
   return row;
 };
@@ -45,17 +56,34 @@ export default class List {
     const title = new Title({ text: titleLabel });
     this.component.appendChild(title);
 
+    const newButton = new Button({
+      placeholder: 'New',
+      type: 'button',
+      onClick: () => Router.go('form')
+    }).component;
+
     const list = document.createElement('div');
     list.classList.add('list__items');
+    this.list = list;
 
     persons.forEach(person => {
-      const personElement = createRow(person);
+      const personElement = createRow(person, this.handleEdit, this.handleDelete.bind(this));
       this.personElements.push(personElement);
     });
 
     this.personElements.forEach(person => list.appendChild(person));
+    this.component.appendChild(newButton);
     this.component.appendChild(list);
 
     return this;
+  }
+
+  handleEdit (id) {
+    Router.go('form', { id });
+  }
+
+  handleDelete (id, rowElement) {
+    this.PersonRepository.delete(id);
+    this.list.removeChild(rowElement);
   }
 }
