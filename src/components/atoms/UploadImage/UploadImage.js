@@ -3,6 +3,11 @@ require('./UploadImage.scss');
 const MAX_SIZE = 500000;
 export default class UploadImage {
   constructor ({ value = '', placeholder = '', id = '', className = '', onChange }) {
+    this.dragenter = this.dragenter.bind(this);
+    this.dragover = this.dragover.bind(this);
+    this.dragleave = this.dragleave.bind(this);
+    this.drop = this.drop.bind(this);
+
     this.value = value;
     this.id = id;
     this.onChange = onChange;
@@ -19,10 +24,10 @@ export default class UploadImage {
 
     this.droppableArea = document.createElement('div');
     this.droppableArea.classList.add('upload-image__droppable-area');
-    this.droppableArea.ondragenter = this.dragenter.bind(this);
-    this.droppableArea.ondragover = this.dragover.bind(this);
-    this.droppableArea.ondragleave = this.dragleave.bind(this);
-    this.droppableArea.ondrop = this.drop.bind(this);
+    this.droppableArea.ondragenter = this.dragenter;
+    this.droppableArea.ondragover = this.dragover;
+    this.droppableArea.ondragleave = this.dragleave;
+    this.droppableArea.ondrop = this.drop;
 
     this.preview = document.createElement('div');
     this.preview.classList.add('upload-image__avatar');
@@ -51,25 +56,24 @@ export default class UploadImage {
   }
 
   handleFiles (files) {
-    if (!files[0]) return;
+    if (!files[0]) return false;
 
     const file = files[0];
     const imageType = /^image\//;
 
     if (!imageType.test(file.type) || file.size > MAX_SIZE) {
       this.errorMessage.textContent = 'Invalid File';
-      return;
+      return false;
     }
 
+    this.errorMessage.textContent = '';
     const reader = new FileReader();
     reader.readAsDataURL(file);
-
-    this.errorMessage.textContent = '';
-
     reader.onload = (e) => {
       this.img.src = e.target.result;
       this.onChange(this.id, e.target.result);
     };
+    return true;
   }
 
   dragenter (e) {
