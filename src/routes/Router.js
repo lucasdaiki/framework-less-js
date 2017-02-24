@@ -1,6 +1,6 @@
 import ROUTES from './routes';
 import { getHash } from './parsers';
-import Navbar from '../components/molecules/Navbar';
+import Navbar from '../components/atoms/Navbar';
 
 export default class Router {
   static go (hash = '', params) {
