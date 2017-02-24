@@ -1,7 +1,6 @@
 import sinon from 'sinon';
 import Input from './Input';
 
-
 let onChange;
 beforeEach(() => {
   onChange = sinon.spy();

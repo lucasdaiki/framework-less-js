@@ -1,10 +1,8 @@
 import sinon from 'sinon';
 import AutoCompleteAddress from './AutoCompleteAddress';
 
-
 const addEventListener = sinon.spy();
 const onChange = sinon.spy();
-
 
 class Adapter {
   constructor () {
