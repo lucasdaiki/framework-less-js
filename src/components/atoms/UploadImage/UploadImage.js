@@ -7,7 +7,6 @@ export default class UploadImage {
     this.dragover = this.dragover.bind(this);
     this.dragleave = this.dragleave.bind(this);
     this.drop = this.drop.bind(this);
-
     this.value = value;
     this.id = id;
     this.onChange = onChange;
@@ -15,44 +14,63 @@ export default class UploadImage {
     this.component = document.createElement('div');
     this.component.className = `upload-image__container ${className} ${id}`;
 
-    this.input = document.createElement('input');
-    this.input.classList.add('upload-image__input');
-    this.input.onchange = e => this.handleFiles(e.target.files);
-    this.input.type = 'file';
-    this.input.name = id;
-    this.input.id = id;
+    this.preview = this.buildPreview();
+    const avatar = this.buildAvatar(this.preview);
+    this.droppableArea = this.buildDroppableArea(avatar);
 
-    this.droppableArea = document.createElement('div');
-    this.droppableArea.classList.add('upload-image__droppable-area');
-    this.droppableArea.ondragenter = this.dragenter;
-    this.droppableArea.ondragover = this.dragover;
-    this.droppableArea.ondragleave = this.dragleave;
-    this.droppableArea.ondrop = this.drop;
+    this.message = this.buildMessage('Choose a file or drag it here', '--choose-file', this.id);
+    this.errorMessage = this.buildMessage('', '--error', 'id');
+    const input = this.buildInput();
 
-    this.preview = document.createElement('div');
-    this.preview.classList.add('upload-image__avatar');
-
-    this.img = document.createElement('img');
-    this.img.classList.add('upload-image__preview');
-    if (value) this.img.src = value;
-    this.preview.appendChild(this.img);
-
-    this.message = document.createElement('label');
-    this.message.classList.add('upload-image__message');
-    this.message.textContent = 'Choose a file or drag it here';
-    this.message.setAttribute('for', id);
-
-    this.errorMessage = document.createElement('label');
-    this.errorMessage.classList.add('upload-image__message');
-    this.errorMessage.classList.add('--error');
-
-    this.droppableArea.appendChild(this.preview);
     this.component.appendChild(this.droppableArea);
-    this.component.appendChild(this.message);
     this.component.appendChild(this.errorMessage);
-    this.component.appendChild(this.input);
+    this.component.appendChild(this.message);
+    this.component.appendChild(input);
 
     return this;
+  }
+
+  buildMessage (text, classNames = '', id = '') {
+    const label = document.createElement('label');
+    label.textContent = text;
+    label.className = `upload-image__message ${classNames}`;
+    label.setAttribute('for', id);
+    return label;
+  }
+
+  buildPreview () {
+    const preview = document.createElement('img');
+    preview.classList.add('upload-image__preview');
+    if (this.value) preview.src = this.value;
+    return preview;
+  }
+
+  buildAvatar (preview) {
+    const avatar = document.createElement('div');
+    avatar.classList.add('upload-image__avatar');
+    avatar.appendChild(preview);
+    return avatar;
+  }
+
+  buildDroppableArea (avatar) {
+    const droppableArea = document.createElement('div');
+    droppableArea.classList.add('upload-image__droppable-area');
+    droppableArea.ondragenter = this.dragenter;
+    droppableArea.ondragover = this.dragover;
+    droppableArea.ondragleave = this.dragleave;
+    droppableArea.ondrop = this.drop;
+    droppableArea.appendChild(avatar);
+    return droppableArea;
+  }
+
+  buildInput () {
+    const input = document.createElement('input');
+    input.classList.add('upload-image__input');
+    input.onchange = e => this.handleFiles(e.target.files);
+    input.type = 'file';
+    input.name = this.id;
+    input.id = this.id;
+    return input;
   }
 
   handleFiles (files) {
@@ -70,7 +88,7 @@ export default class UploadImage {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (e) => {
-      this.img.src = e.target.result;
+      this.preview.src = e.target.result;
       this.onChange(this.id, e.target.result);
     };
     return true;
